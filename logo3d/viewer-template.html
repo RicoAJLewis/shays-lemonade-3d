@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Shay's Lemonade Bar 3D Logo</title>
+  <!--MODEL_VIEWER_RUNTIME-->
+  <style>
+    * { box-sizing: border-box; }
+    html, body, #root, .viewer-shell, model-viewer { width:100%; height:100%; margin:0; overflow:hidden; border:0; background:transparent !important; }
+    model-viewer { position:absolute; inset:0; z-index:2; display:block; touch-action:none; --poster-color:transparent; --progress-bar-color:transparent; --progress-bar-height:0; }
+    .static-logo { position:absolute; inset:0; z-index:1; width:100%; height:100%; object-fit:contain; background:transparent !important; pointer-events:none; }
+    #root.model-loaded .fallback-logo { opacity:0; }
+  </style>
+</head>
+<body>
+  <div id="root"><div class="viewer-shell">
+    <img class="static-logo fallback-logo" src="<!--FALLBACK_DATA-->" alt="">
+    <model-viewer src="<!--MODEL_DATA-->" alt="Shay's Lemonade Bar 3D logo" camera-controls disable-pan disable-zoom interaction-prompt="none" shadow-intensity="0.9" shadow-softness="0.8" exposure="1.05" environment-image="neutral"></model-viewer>
+  </div></div>
+  <script>
+    const viewer=document.querySelector("model-viewer");
+    const showInteractiveModel=()=>{document.querySelector("#root").classList.add("model-loaded");parent.postMessage({type:"shay-logo-ready"},"*");};
+    const reportInteraction=()=>parent.postMessage({type:"shay-logo-interacted"},"*");
+    viewer.addEventListener("load",showInteractiveModel,{once:true});
+    viewer.addEventListener("pointerdown",reportInteraction,{once:true});
+    if(viewer.loaded)showInteractiveModel();
+  </script>
+</body>
+</html>

@@ -1,56 +1,117 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, maximum-scale=1"
-  >
-
-  <title>Shay's Lemonade 3D Logo</title>
-
-  <script
-    type="module"
-    src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.1.0/model-viewer.min.js">
-  </script>
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f43f8f">
+  <title>Shay's Lemonade Bar</title>
+  <link id="siteFavicon" rel="icon" type="image/png" href="assets/favicon-logo.png">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="styles.css?v=20260919-cart-all-pages">
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      overflow: hidden;
-      background: transparent;
-    }
-
-    model-viewer {
-      width: 100%;
-      height: 100%;
-      min-height: 100vh;
-      background: transparent;
-      touch-action: pan-y;
+    @media(max-width:600px) and (orientation:portrait){
+      /* Change this single opacity value to adjust the fruit wallpaper on every mobile page. */
+      .opening-pattern,.mobile-flavor-art::before,.home-stage::before,#location .page-stage::before,#contact .page-stage::before{background-image:url("assets/opening-wallpaper.png?v=20260918")!important;background-repeat:repeat!important;background-position:0 0!important;background-size:280px 55px!important;background-color:transparent!important;filter:url("#fruitPatternKey")!important;opacity:.15!important}
+      .home-stage,#location .page-stage{background:#f43f8f!important}.home-stage::before,#location .page-stage::before,#contact .page-stage::before{content:"";position:absolute;z-index:0;inset:0;pointer-events:none}
+      #contact .page-stage{background:#f43f8f!important}#contact::after{display:none!important}.mobile-lemon-art{background:none!important}
+      .flavor-slide[data-flavor="lemon"] .mobile-fruit{left:50%!important;top:calc(50% + 20px)!important;width:440px!important;height:347px!important;rotate:0deg!important;translate:-50% -50%;object-fit:contain!important}
+      .flavor-slide[data-flavor="lemon"] .mobile-cup{left:50%!important;top:calc(50% - .33px)!important;width:334px!important;height:267px!important;translate:-50% -50%!important;border-radius:0!important;object-fit:contain!important}
+      .flavor-slide[data-flavor="lemon"] .mobile-product-copy{left:16px!important;right:auto!important;bottom:24px!important;width:220px!important}
+      .flavor-slide[data-flavor="lemon"] .mobile-product-copy h2{max-width:195px!important}.flavor-slide[data-flavor="lemon"] .mobile-product-copy p{max-width:176px!important}.flavor-slide[data-flavor="lemon"] .mobile-product-copy strong{left:auto!important;right:-138px!important;bottom:64px!important;width:72px!important}
+      .flavor-slide[data-flavor="lemon"] .quantity{bottom:48px!important;width:36px!important;height:36px!important}.flavor-slide[data-flavor="lemon"] .minus{left:270px!important}.flavor-slide[data-flavor="lemon"] .plus{left:340px!important}.flavor-slide[data-flavor="lemon"] .quantity-output{left:310px!important;bottom:48px!important;width:26px!important;height:36px!important;font-size:15px!important}
+      .flavor-slide[data-flavor="lemon"] .add-cart{left:auto!important;right:14px!important;bottom:8px!important;width:106px!important;height:36px!important}.flavor-slide[data-flavor="lemon"] .arrow{top:50%!important;width:48px!important;height:48px!important;translate:0 -50%!important}.flavor-slide[data-flavor="lemon"] .arrow-right,.flavor-slide[data-flavor="lemon"] .arrow-right.solo{left:auto!important;right:12px!important}
+      .flavor-slide .mobile-product-copy h2{font-family:"DM Serif Text",Georgia,serif!important;font-size:12.188px!important;font-style:normal!important;font-weight:400!important;line-height:14.896px!important;letter-spacing:0!important}
+      .flavor-slide .mobile-product-copy .script-word{font-family:Corinthia,cursive!important;font-size:17.604px!important;font-style:normal!important;font-weight:400!important;line-height:14.896px!important}
+      .flavor-slide .mobile-product-copy p{max-width:min(52vw,205px)!important;font-family:Inter,Arial,sans-serif!important;font-size:clamp(9.5px,3vw,12px)!important;font-style:normal!important;font-weight:400!important;line-height:1.25!important;letter-spacing:0!important}
+      .flavor-slide .mobile-product-copy strong{font-family:"DM Serif Text",Georgia,serif!important;font-size:13px!important;font-style:normal!important;font-weight:400!important;line-height:14.896px!important}
+      .flavor-slide .add-cart::after{font-family:Inter,Arial,sans-serif!important;font-size:clamp(9px,2.6vw,11px)!important;font-style:normal!important;font-weight:600!important;line-height:normal!important;text-transform:capitalize!important}
+      .flavor-slide .quantity-output{font-family:Inter,Arial,sans-serif!important;font-size:clamp(11px,3vw,13px)!important;font-style:normal!important;font-weight:500!important;line-height:normal!important}
+      .flavor-slide[data-flavor="lemon"] .flavor-stage{background:radial-gradient(ellipse 50% 50% at 50% 50%,#d7a006 0%,#ffd84d 100%)!important}
+      .flavor-slide[data-flavor="strawberry"] .flavor-stage{background:radial-gradient(ellipse 50% 50% at 50% 50%,#eb0d0c 0%,#9d174d 100%)!important}
+      .flavor-slide[data-flavor="mango"] .flavor-stage{background:radial-gradient(ellipse 50% 50% at 50% 50%,#fcab0f 0%,#eb7825 100%)!important}
+      .flavor-slide[data-flavor="coconut"] .flavor-stage{background:radial-gradient(ellipse 50% 50% at 50% 50%,#d5cec9 0%,#ffffff 100%)!important}
+      .flavor-slide[data-flavor="mint"] .flavor-stage{background:radial-gradient(ellipse 50% 50% at 50% 50%,#759f63 0%,#50b008 100%)!important}
+      .flavor-slide .mobile-flavor-word{top:clamp(160px,22dvh,195px)!important}
+      .flavor-slide[data-flavor="lemon"] .mobile-flavor-word{font-size:66px!important}
+      .flavor-slide[data-flavor="strawberry"] .mobile-flavor-word{font-size:66px!important}
+      .flavor-slide[data-flavor="mint"] .mobile-flavor-word{font-size:61px!important}
+      .opening.playing .opening-strawberries,.opening.playing .opening-word,.opening.playing .opening-mint,.opening.playing .opening-lemons{animation-duration:2.4s!important}
+      @keyframes openingWordOpacity{0%,8%{opacity:0}18%,68%{opacity:1}92%,100%{opacity:0}}
+      @keyframes openingWordTranslate{0%,68%{translate:-50% -50%}100%{translate:-50% calc(-50% + 180px)}}
+      @keyframes openingStrawberries{0%,5%{translate:66.896px -40.083px}36%{animation-timing-function:cubic-bezier(1,.134,1,1);translate:63.307px 10.029px}100%{translate:43.876px calc(100dvh + 120px)}}
+      @keyframes openingMint{0%,8%{translate:-8.667px -100.479px}8%{animation-timing-function:cubic-bezier(0,.769,1,1)}100%{translate:0 calc(100dvh + 120px)}}
+      @keyframes openingLemons{0%{translate:-1.979px -38.651px}100%{translate:9.39px calc(100dvh + 140px)}}
+      .mobile-header:has(nav [data-target="home"].is-active) .mobile-brand{visibility:hidden!important;opacity:0!important;pointer-events:none!important}
+      .mobile-purchase{--purchase-width:clamp(116px,32vw,132px);--control-size:clamp(40px,11vw,46px);position:absolute;z-index:12;right:14px;bottom:8px;width:var(--purchase-width);display:grid;grid-template-rows:auto var(--control-size) 42px;gap:8px;justify-items:center;align-items:center;color:#fff}
+      .mobile-purchase strong{width:var(--purchase-width);font:400 clamp(15px,4vw,17px)/1 "DM Serif Text",Georgia,serif;text-align:center;white-space:nowrap}
+      .mobile-purchase .quantity-row{width:var(--purchase-width);height:var(--control-size);display:grid;grid-template-columns:var(--control-size) 1fr var(--control-size);align-items:center;justify-items:center}
+      .flavor-slide .mobile-purchase .quantity,.flavor-slide .mobile-purchase .quantity-output,.flavor-slide .mobile-purchase .add-cart{position:relative!important;inset:auto!important;top:auto!important;right:auto!important;bottom:auto!important;left:auto!important;translate:none!important;margin:0!important}
+      .flavor-slide .mobile-purchase .quantity{width:var(--control-size)!important;height:var(--control-size)!important}.flavor-slide .mobile-purchase .quantity::after{font-size:clamp(25px,7vw,30px)!important}.flavor-slide .mobile-purchase .quantity-output{width:100%!important;height:var(--control-size)!important;display:grid!important;place-items:center!important;font:500 clamp(11px,3vw,13px)/1 Inter,Arial,sans-serif!important}.flavor-slide .mobile-purchase .add-cart{width:var(--purchase-width)!important;height:42px!important}
+      .flavor-slide[data-flavor="coconut"] .mobile-purchase{color:#22191b}
+      .mobile-contact-details{position:absolute;z-index:12;left:20px;right:20px;bottom:max(14px,env(safe-area-inset-bottom));width:auto;min-height:126px;padding:15px 76px 14px 16px;display:grid;align-content:start;gap:7px;color:#fff;background:#72133f52;border:1px solid #ffffff47;border-radius:18px;box-shadow:0 10px 28px #4e0b2d38;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);text-shadow:0 1px 5px #4f0b2d55}
+      .mobile-contact-details p{margin:0}.mobile-contact-details .contact-service{margin-bottom:3px;font:600 16px/1.15 "DM Serif Text",Georgia,serif}.mobile-contact-details a{display:grid;grid-template-columns:45px minmax(0,1fr);gap:8px;align-items:baseline;color:inherit;font:500 12px/1.3 Inter,Arial,sans-serif;text-decoration:none}.mobile-contact-details a span{font:700 10px/1.3 Inter,Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase}.mobile-contact-details .contact-socials{position:absolute;right:14px;top:16px;width:54px;font:400 14px/1 "DM Serif Text",Georgia,serif;text-align:center}
+      #contact .instagram{left:auto!important;right:31px!important;bottom:max(34px,calc(env(safe-area-inset-bottom) + 20px))!important;width:34px!important;height:34px!important;padding:2px!important;color:#fff!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important}
     }
   </style>
 </head>
-
-<body>
-  <model-viewer
-    src="./models/Shays_Lemonade_3D_Logo_Raised_V3.glb"
-    alt="Shay's Lemonade Bar 3D logo"
-    camera-controls
-    auto-rotate
-    rotation-per-second="10deg"
-    shadow-intensity="0.9"
-    shadow-softness="0.8"
-    exposure="1.05"
-    environment-image="neutral"
-    interaction-prompt="auto"
-    ar>
-  </model-viewer>
+<body class="intro-active">
+  <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;overflow:hidden">
+    <filter id="fruitPatternKey" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  -0.258 1 0 0 0"/>
+      <feComponentTransfer><feFuncA type="linear" slope="8" intercept="0"/></feComponentTransfer>
+    </filter>
+  </svg>
+  <header id="mobileHeader" class="mobile-header" aria-label="Mobile website header">
+    <button class="mobile-brand" data-target="home" aria-label="Home"><img src="assets/favicon-logo.png" alt="Shay's Lemonade Bar"></button>
+    <nav aria-label="Mobile page navigation"><button data-target="home">Home</button><button data-target="menu">Menu</button><button data-target="location">Location</button><button data-target="contact">Contact</button></nav>
+    <button class="cart-button mobile-cart" data-action="open-cart" aria-label="Open cart"><svg class="mobile-cart-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M8.5 11.5h15l1.8 14H6.7l1.8-14Z"/><path d="M11.5 12V9a4.5 4.5 0 0 1 9 0v3"/></svg><span class="cart-badge" aria-hidden="true" hidden>0</span></button>
+  </header>
+  <section id="opening-page" class="opening-shell" data-page="opening" aria-label="Opening animation 1">
+      <div id="opening" class="stage opening" data-figma-node="152:721">
+        <div class="opening-pattern" aria-hidden="true"></div><div class="opening-border" aria-hidden="true"></div>
+        <div class="opening-fruit opening-strawberries" data-figma-node="152:728" aria-hidden="true"><img src="assets/opening-strawberries.png?v=20260911" alt=""></div>
+        <div class="opening-word" data-figma-node="152:724">REFRESHING</div>
+        <div class="opening-fruit opening-mint" data-figma-node="152:730" aria-hidden="true"><img src="assets/opening-mint.png?v=20260911" alt=""></div>
+        <div class="opening-fruit opening-lemons" data-figma-node="152:726" aria-hidden="true"><img src="assets/opening-lemons.png?v=20260911" alt=""></div>
+      </div>
+  </section>
+  <main id="verticalFlow" aria-label="Shay's Lemonade Bar website">
+    <section id="home" class="page-shell" data-page="home" aria-label="Home page">
+      <div class="stage page-stage home-stage" data-motion="home">
+        <img class="screen-art" src="assets/home.png?v=20260911" alt="Shay's Lemonade Bar home page">
+        <div class="mobile-home-word" aria-hidden="true">REFRESHING</div>
+        <iframe class="home-logo" src="logo3d/index.html?v=20260918-logo-ready" title="Interactive 3D Logo Viewer"></iframe>
+        <div class="logo-interaction-hint" aria-hidden="true"><span>Interact with me</span><svg viewBox="0 0 220 120" role="presentation"><path class="chalk-echo" d="M204 22C143-5 112 31 151 53C190 75 161 104 79 89C51 84 33 77 20 68"/><path class="chalk-line" d="M204 22C143-5 112 31 151 53C190 75 161 104 79 89C51 84 33 77 20 68"/><path class="chalk-arrow" d="M35 61L20 68L31 81"/></svg></div>
+        <nav class="hotspots nav" aria-label="Home navigation"><button data-target="home" aria-label="Home"></button><button data-target="menu" aria-label="Menu"></button><button data-target="location" aria-label="Location"></button><button data-target="contact" aria-label="Contact"></button></nav>
+        <button class="hotspot cart-button" data-action="open-cart" aria-label="Open cart"><span class="cart-badge" aria-hidden="true" hidden>0</span></button>
+      </div>
+    </section>
+    <section id="menu" class="page-shell menu-shell" data-page="menu" aria-label="Menu flavor pages">
+      <div id="flavorTrack" class="flavor-track" tabindex="0" aria-label="Scroll horizontally through lemonade flavors">
+        <article class="flavor-slide" data-flavor="lemon"><div class="stage page-stage flavor-stage"><video class="screen-art flavor-motion" poster="assets/lemon.png?v=20260911" muted playsinline preload="auto" aria-label="Animated classic lemonade menu page"><source src="assets/lemon-motion.mp4" type="video/mp4"></video><div class="mobile-flavor-art mobile-lemon-art" aria-hidden="true"><img class="mobile-fruit" src="assets/mobile-lemon-fruit.png" alt=""><div class="mobile-flavor-word">The Classic</div><img class="mobile-cup" src="assets/mobile-classic-cup.png" alt=""></div><iframe class="mini-logo" src="logo3d/index.html" title="Interactive miniature 3D Logo Viewer"></iframe><div class="page-hotspots"></div></div></article>
+        <article class="flavor-slide" data-flavor="strawberry"><div class="stage page-stage flavor-stage"><video class="screen-art flavor-motion" poster="assets/strawberry.png?v=20260911" muted playsinline preload="auto" aria-label="Animated strawberry lemonade menu page"><source src="assets/strawberry-motion.mp4" type="video/mp4"></video><div class="mobile-flavor-art" aria-hidden="true"><img class="mobile-fruit" src="assets/mobile-strawberry-fruit.png" alt=""><div class="mobile-flavor-word">Strawberry</div><img class="mobile-cup" src="assets/mobile-strawberry-cup.png" alt=""></div><iframe class="mini-logo" src="logo3d/index.html" title="Interactive miniature 3D Logo Viewer"></iframe><div class="page-hotspots"></div></div></article>
+        <article class="flavor-slide" data-flavor="mango"><div class="stage page-stage flavor-stage"><video class="screen-art flavor-motion" poster="assets/mango.png?v=20260911" muted playsinline preload="auto" aria-label="Animated mango lemonade menu page"><source src="assets/mango-motion.mp4" type="video/mp4"></video><div class="mobile-flavor-art" aria-hidden="true"><img class="mobile-fruit" src="assets/mobile-mango-fruit.png" alt=""><div class="mobile-flavor-word">Mango</div><img class="mobile-cup" src="assets/mobile-mango-cup.png" alt=""></div><iframe class="mini-logo" src="logo3d/index.html" title="Interactive miniature 3D Logo Viewer"></iframe><div class="page-hotspots"></div></div></article>
+        <article class="flavor-slide" data-flavor="coconut"><div class="stage page-stage flavor-stage"><video class="screen-art flavor-motion" poster="assets/coconut.png?v=20260911" muted playsinline preload="auto" aria-label="Animated coconut lemonade menu page"><source src="assets/coconut-motion.mp4" type="video/mp4"></video><div class="mobile-flavor-art" aria-hidden="true"><img class="mobile-fruit" src="assets/mobile-coconut-fruit.png" alt=""><div class="mobile-flavor-word">Coconut</div><img class="mobile-cup" src="assets/mobile-coconut-cup.png" alt=""></div><iframe class="mini-logo" src="logo3d/index.html" title="Interactive miniature 3D Logo Viewer"></iframe><div class="page-hotspots"></div></div></article>
+        <article class="flavor-slide" data-flavor="mint"><div class="stage page-stage flavor-stage"><video class="screen-art flavor-motion" poster="assets/mint.png?v=20260911" muted playsinline preload="auto" aria-label="Animated frosted mint lemonade menu page"><source src="assets/mint-motion.mp4" type="video/mp4"></video><div class="mobile-flavor-art" aria-hidden="true"><img class="mobile-fruit" src="assets/mobile-mint-fruit.png" alt=""><div class="mobile-flavor-word">Frosted Mint</div><img class="mobile-cup" src="assets/mobile-mint-cup.png" alt=""></div><iframe class="mini-logo" src="logo3d/index.html" title="Interactive miniature 3D Logo Viewer"></iframe><div class="page-hotspots"></div></div></article>
+      </div>
+    </section>
+    <section id="location" class="page-shell" data-page="location" aria-label="Location page"><div class="stage page-stage"><img class="screen-art" src="assets/location.png?v=20260911" alt="Find us by the Deck"><div id="locationMap" class="location-map" role="application" aria-label="Interactive map showing Shay's Lemonade Bar at Haymans Market"><a class="map-fallback" href="https://www.google.com/maps/search/?api=1&query=13.242985%2C-59.629323" target="_blank" rel="noreferrer">Open Shay's Lemonade Bar in Google Maps</a></div><a class="directions-button" href="https://www.google.com/maps/dir/?api=1&destination=13.242985%2C-59.629323&travelmode=driving" target="_blank" rel="noreferrer" aria-label="Get directions from your current location to Shay's Lemonade Bar">Directions from me</a><iframe class="mini-logo" src="logo3d/index.html" title="Interactive miniature 3D Logo Viewer"></iframe><div class="page-hotspots simple-page-hotspots"></div></div></section>
+    <section id="contact" class="page-shell" data-page="contact" aria-label="Contact page">
+      <div class="stage page-stage"><img class="screen-art" src="assets/contact.png?v=20260911" alt="Contact Shay's Lemonade Bar"><iframe class="mini-logo" src="logo3d/index.html" title="Interactive miniature 3D Logo Viewer"></iframe><div class="page-hotspots simple-page-hotspots"></div>
+        <aside class="mobile-contact-details" aria-label="Shay's Lemonade Bar contact details"><p class="contact-service">We are here to serve you.</p><a href="tel:+12462612913"><span>Phone</span>+1 (246) 261-2913</a><a href="mailto:Sharajay76@gmail.com"><span>Email</span>Sharajay76@gmail.com</a><p class="contact-socials">Socials</p></aside>
+        <a class="hotspot instagram" href="https://www.instagram.com/shayslemonadebar/" target="_blank" rel="noreferrer" aria-label="Shay's Lemonade Bar on Instagram"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="4" width="24" height="24" rx="7"/><circle cx="16" cy="16" r="5.5"/><circle cx="23.5" cy="8.5" r="1.5" class="instagram-dot"/></svg></a>
+        <form id="contactForm"><input name="name" aria-label="Your name" placeholder="Your Name :" autocomplete="name" required><input name="email" type="email" aria-label="Your email" placeholder="Your Email :" autocomplete="email" required><input name="phone" type="tel" aria-label="Your phone number" placeholder="Your Phone # :" autocomplete="tel" required><textarea name="message" aria-label="Your message" placeholder="Message :" required></textarea><button type="submit" aria-label="Submit contact form"></button></form>
+      </div>
+    </section>
+  </main>
+  <dialog id="checkout" class="checkout-overlay" aria-labelledby="cartTitle">
+    <article class="checkout-card" data-figma-node="216:1494">
+      <button class="checkout-close" data-action="close-cart" aria-label="Close cart"></button><h2 id="cartTitle">My Cart</h2>
+      <div id="cartItems"><p>Your cart is empty.</p></div><div class="checkout-rule"></div>
+      <div class="checkout-footer"><label><input type="checkbox" checked> <span>All</span></label><span class="checkout-total">Total:&nbsp; <strong id="total">$0.00</strong></span></div>
+      <button class="confirm-order" data-action="confirm-order">Confirm Order</button>
+    </article>
+  </dialog>
+  <div id="toast" role="status" aria-live="polite"></div><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="app.js?v=20260919-cart-all-pages"></script>
 </body>
 </html>
